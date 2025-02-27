@@ -1,0 +1,22 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <app-inventory-list
+        [inventory]="inventory"
+        [currentPage]="currentPage"
+        [hasNextPage]="hasNextPage"
+        [loading]="loading"
+        [searchTerm]="searchTerm"
+        (pageChange)="onPageChange($event)"
+        (searchChange)="onSearchInput($event)"
+        (addNew)="showImport()">
+      </app-inventory-list>
+
+      <app-import-inventory
+        *ngIf="showImportModal"
+        (save)="saveImport()"
+        (cancel)="cancelImport()">
+      </app-import-inventory>
+    </div>
+  </div>
+</div> 

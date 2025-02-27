@@ -1,0 +1,14 @@
+<div class="container py-4">
+  <h1 class="text-center mb-4 fw-bold">Dashboard</h1>
+  
+  <div class="menu-grid p-3">
+    <a *ngFor="let item of menuItems" 
+       [routerLink]="item.route" 
+       class="menu-item text-decoration-none p-4 bg-white rounded shadow-sm text-center">
+      <div class="icon-container bg-light rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3">
+        <i [class]="item.icon" class="text-secondary"></i>
+      </div>
+      <span class="fs-5 fw-500 text-secondary">{{ item.label }}</span>
+    </a>
+  </div>
+</div> 

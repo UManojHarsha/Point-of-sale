@@ -1,0 +1,88 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="mb-4">Daily Sales Report</h2>
+
+      <!-- Filters -->
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title mb-3">Date Range</h5>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label class="form-label">Start Date</label>
+              <input type="date" class="form-control" [min]="minDate" [max]="maxDate" [(ngModel)]="filters.startDate">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">End Date</label>
+              <input type="date" class="form-control" [min]="minDate" [max]="maxDate" [(ngModel)]="filters.endDate">
+            </div>
+            <div class="col-12">
+              <button class="btn btn-primary me-2" (click)="applyFilters()">
+                <i class="bi bi-search me-1"></i>Apply Filters
+              </button>
+              <button class="btn btn-secondary" (click)="clearFilters()">
+                <i class="bi bi-x-circle me-1"></i>Clear
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div *ngIf="loading" class="text-center my-4">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <!-- Error Message -->
+      <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+      </div>
+
+      <!-- Results -->
+      <div *ngIf="salesData.length > 0" class="card">
+        <div class="card-header bg-light">
+          <div class="row text-center">
+            <div class="col-md-4">
+              <h6 class="mb-0">Total Orders</h6>
+              <h4 class="mb-0">{{ totalOrders }}</h4>
+            </div>
+            <div class="col-md-4">
+              <h6 class="mb-0">Total Products Sold</h6>
+              <h4 class="mb-0">{{ totalProducts }}</h4>
+            </div>
+            <div class="col-md-4">
+              <h6 class="mb-0">Total Revenue</h6>
+              <h4 class="mb-0">{{ totalRevenue | currency }}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Date</th>
+                <th class="text-end">Orders</th>
+                <th class="text-end">Products Sold</th>
+                <th class="text-end">Revenue</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let day of salesData">
+                <td>{{ day.date | date:'mediumDate' }}</td>
+                <td class="text-end">{{ day.orderCount }}</td>
+                <td class="text-end">{{ day.productCount }}</td>
+                <td class="text-end">{{ day.revenue | currency }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- No Results Message -->
+      <div *ngIf="!loading && !error && salesData.length === 0" class="alert alert-info">
+        No sales data found for the selected period.
+      </div>
+  </div>
+</div> 

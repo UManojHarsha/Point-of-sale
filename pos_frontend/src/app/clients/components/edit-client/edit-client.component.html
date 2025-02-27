@@ -1,0 +1,74 @@
+<div class="modal d-block" tabindex="-1">
+  <div class="modal-backdrop show"></div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Client</h5>
+        <button type="button" class="btn-close" (click)="onCancel()"></button>
+      </div>
+      <div class="modal-body">
+        <form #editForm="ngForm" (ngSubmit)="onSubmit(editForm)">
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="name"
+              name="name"
+              [(ngModel)]="editingClient.name"
+              required
+              #name="ngModel">
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger">
+              <small *ngIf="name.errors?.['required']">Name is required</small>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input 
+              type="email" 
+              class="form-control" 
+              id="email"
+              name="email"
+              [(ngModel)]="editingClient.email"
+              required
+              email
+              #email="ngModel">
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+              <small *ngIf="email.errors?.['required']">Email is required</small>
+              <small *ngIf="email.errors?.['email']">Please enter a valid email</small>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="contact_no" class="form-label">Contact No</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="contact_no"
+              name="contact_no"
+              [(ngModel)]="editingClient.contactNo"
+              required
+              minlength="10"
+              maxlength="10"
+              #contact="ngModel">
+            <div *ngIf="contact.invalid && (contact.dirty || contact.touched)" class="text-danger">
+              <small *ngIf="contact.errors?.['required']">Contact number is required</small>
+              <small *ngIf="contact.errors?.['minlength'] || contact.errors?.['maxlength']">Contact number must be 10 digits</small>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+            <button 
+              type="submit" 
+              class="btn btn-primary"
+              [disabled]="editForm.invalid">
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> 

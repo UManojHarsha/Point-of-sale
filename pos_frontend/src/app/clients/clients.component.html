@@ -1,0 +1,30 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <app-client-list
+        [clients]="clients"
+        [currentPage]="currentPage"
+        [hasNextPage]="hasNextPage"
+        [loading]="loading"
+        [searchTerm]="searchTerm"
+        (edit)="startEdit($event)"
+        (pageChange)="onPageChange($event)"
+        (searchChange)="onSearchInput($event)"
+        (addNew)="addNewClient()">
+      </app-client-list>
+
+      <app-add-client
+        *ngIf="showAddForm"
+        (save)="submitNewClient()"
+        (cancel)="cancelAdd()">
+      </app-add-client>
+
+      <edit-client
+        *ngIf="editingClient"
+        [client]="editingClient"
+        (save)="saveEdit()"
+        (cancel)="cancelEdit()">
+      </edit-client>
+    </div>
+  </div>
+</div>

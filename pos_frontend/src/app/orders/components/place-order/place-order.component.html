@@ -1,0 +1,115 @@
+<div class="modal d-block" tabindex="-1">
+  <div class="modal-backdrop show"></div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Place New Order</h5>
+        <button type="button" class="btn-close" (click)="onCancel()"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Product Search -->
+        <div class="mb-4">
+          <h6>Search Products</h6>
+          <div class="input-group mb-3">
+            <input 
+              type="text" 
+              class="form-control"
+              [(ngModel)]="searchTerm"
+              (ngModelChange)="onSearch($event)"
+              placeholder="Search products by name...">
+            <span class="input-group-text">
+              <i class="bi bi-search"></i>
+            </span>
+          </div>
+
+          <!-- Search Results -->
+          <div *ngIf="searchedProducts.length > 0" class="list-group mb-3">
+            <button 
+              *ngFor="let product of searchedProducts"
+              class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+              (click)="selectProduct(product)">
+              <div>
+                <h6 class="mb-0">{{ product.name }}</h6>
+                <small class="text-muted">Price: {{ product.price | currency }}</small>
+              </div>
+            </button>
+          </div>
+
+          <!-- Selected Product Quantity -->
+          <div *ngIf="currentItem.product?.id" class="row g-3">
+            <div class="col-md-8">
+              <label class="form-label">Quantity</label>
+              <div class="input-group">
+                <button class="btn btn-outline-secondary" type="button" 
+                        (click)="adjustQuantity(-1)"
+                        [disabled]="currentItem.quantity <= 1">
+                  <i class="bi bi-dash"></i>
+                </button>
+                <input type="number" class="form-control text-center" 
+                       [(ngModel)]="currentItem.quantity" 
+                       min="1"
+                       (change)="validateQuantity()">
+                <button class="btn btn-outline-secondary" type="button" 
+                        (click)="adjustQuantity(1)">
+                  <i class="bi bi-plus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">&nbsp;</label>
+              <button class="btn btn-primary w-100" 
+                      (click)="addItem()"
+                      [disabled]="!canAddItem()">
+                Add
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Order Items List -->
+        <div *ngIf="orderItems.length > 0" class="mt-4">
+          <h6>Order Items</h6>
+          <div class="table-responsive">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                  <th>Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of orderItems; let i = index">
+                  <td>{{ getProductName(item) }}</td>
+                  <td>{{ item.quantity }}</td>
+                  <td>{{ item.price | currency }}</td>
+                  <td>
+                    <button class="btn btn-danger btn-sm" (click)="removeItem(i)">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                  <td colspan="2"><strong>{{ getOrderTotal() | currency }}</strong></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+        <button type="button" class="btn btn-primary" 
+                (click)="onSubmit()"
+                [disabled]="!canSubmit()">
+          Place Order
+        </button>
+      </div>
+    </div>
+  </div>
+</div> 

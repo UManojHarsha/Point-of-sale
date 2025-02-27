@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fop version="1.0">
+    <strict-configuration>true</strict-configuration>
+    <strict-validation>true</strict-validation>
+    <base>.</base>
+    <font-base>.</font-base>
+    <renderers>
+        <renderer mime="application/pdf">
+            <fonts>
+                <!-- Register default fonts -->
+                <auto-detect/>
+            </fonts>
+        </renderer>
+    </renderers>
+</fop> 

@@ -1,0 +1,35 @@
+.toast-container {
+  z-index: 1100;
+}
+
+.toast {
+  min-width: 350px;
+  background-color: white;
+  opacity: 1 !important;
+
+  &.success .toast-header {
+    background-color: #d4edda;
+    color: #155724;
+  }
+
+  &.error .toast-header {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+
+  &.warning .toast-header {
+    background-color: #fff3cd;
+    color: #856404;
+  }
+
+  &.info .toast-header {
+    background-color: #cce5ff;
+    color: #004085;
+  }
+
+  .toast-header {
+    .bi {
+      font-size: 1.1rem;
+    }
+  }
+} 

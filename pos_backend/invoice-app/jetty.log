@@ -1,0 +1,11 @@
+2025-02-19 09:02:42 INFO  SecurityConfig:58 - Security configuration complete - role-based auth enabled
+2025-02-19 09:03:48 INFO  SecurityConfig:58 - Security configuration complete - role-based auth enabled
+2025-02-19 09:06:01 INFO  SecurityConfig:58 - Security configuration complete - role-based auth enabled
+2025-02-19 09:06:02 WARN  JdbcEnvironmentInitiator:132 - HHH000342: Could not obtain connection to query metadata : Cannot create PoolableConnectionFactory (Access denied for user 'root'@'localhost' (using password: YES))
+2025-02-19 09:06:02 WARN  SqlExceptionHelper:137 - SQL Error: 0, SQLState: null
+2025-02-19 09:06:02 ERROR SqlExceptionHelper:142 - Cannot create PoolableConnectionFactory (Access denied for user 'root'@'localhost' (using password: YES))
+2025-02-19 09:07:53 INFO  SecurityConfig:58 - Security configuration complete - role-based auth enabled
+2025-02-19 09:07:54 WARN  JdbcEnvironmentInitiator:132 - HHH000342: Could not obtain connection to query metadata : Cannot create PoolableConnectionFactory (Access denied for user 'root'@'localhost' (using password: YES))
+2025-02-19 09:07:54 WARN  SqlExceptionHelper:137 - SQL Error: 0, SQLState: null
+2025-02-19 09:07:54 ERROR SqlExceptionHelper:142 - Cannot create PoolableConnectionFactory (Access denied for user 'root'@'localhost' (using password: YES))
+2025-02-19 10:45:31 INFO  SecurityConfig:58 - Security configuration complete - role-based auth enabled

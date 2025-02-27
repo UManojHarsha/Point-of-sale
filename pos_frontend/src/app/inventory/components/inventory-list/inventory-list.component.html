@@ -1,0 +1,76 @@
+<div class="d-flex justify-content-between align-items-center inventory-header">
+  <h2 class="mb-0">Inventory</h2>
+  <div class="d-flex gap-2 align-items-center">
+    <div class="search-container">
+      <input 
+        type="text" 
+        class="form-control form-control-sm search-input" 
+        placeholder="Search by product..." 
+        [ngModel]="searchTerm"
+        (ngModelChange)="onSearchInput($event)"
+        name="search">
+    </div>
+    <button class="btn btn-success" 
+            *ngIf="authService.isSupervisor()"
+            (click)="onAddNew()">
+      <i class="bi bi-file-earmark-text me-2"></i>Import Inventory
+    </button>
+  </div>
+</div>
+
+<div *ngIf="loading" class="alert alert-info text-center">
+  <div class="spinner-border text-primary loading-spinner" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+  Loading inventory...
+</div>
+
+<div *ngIf="error" class="alert alert-warning mt-3">
+  <i class="bi bi-exclamation-triangle me-2"></i>
+  {{ error }}
+</div>
+
+<div *ngIf="!loading && !error" class="card">
+  <div class="table-responsive">
+    <table class="table table-hover mb-0">
+      <thead class="table-light">
+        <tr>
+          <th class="col-3">Product</th>
+          <th class="col-2">Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of inventory">
+          <td>{{ getProductName(item.productId) }}</td>
+          <td>{{ item.totalQuantity || 0 }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="d-flex justify-content-center mt-3">
+    <nav aria-label="Inventory pagination">
+      <ul class="pagination mb-0">
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <button class="page-link" 
+                  (click)="onPageChange(currentPage - 1)" 
+                  [disabled]="currentPage === 1">
+            Previous
+          </button>
+        </li>
+        
+        <li class="page-item active">
+          <button class="page-link">{{ currentPage }}</button>
+        </li>
+        
+        <li class="page-item" [class.disabled]="!hasNextPage">
+          <button class="page-link" 
+                  (click)="onPageChange(currentPage + 1)" 
+                  [disabled]="!hasNextPage">
+            Next
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div> 

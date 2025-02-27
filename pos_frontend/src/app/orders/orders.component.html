@@ -1,0 +1,24 @@
+      <app-order-list
+        [orders]="orders"
+        [currentPage]="currentPage"
+        [hasNextPage]="hasNextPage"
+        [loading]="loading"
+        [searchTerm]="searchTerm"
+        (pageChange)="onPageChange($event)"
+        (searchChange)="onSearchInput($event)"
+        (invoiceAction)="handleInvoiceAction($event)"
+        (viewInvoice)="selectedInvoiceOrder = $event"
+        (addNew)="showPlaceOrder()">
+      </app-order-list>
+
+      <app-place-order
+        *ngIf="showPlaceOrderModal"
+        (save)="savePlaceOrder()"
+        (cancel)="cancelPlaceOrder()">
+      </app-place-order>
+
+      <app-invoice
+        *ngIf="selectedInvoiceOrder"
+        [selectedOrder]="selectedInvoiceOrder"
+        (close)="closeInvoiceViewer()">
+      </app-invoice>

@@ -1,0 +1,46 @@
+<div class="modal d-block" tabindex="-1">
+  <div class="modal-backdrop show"></div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Import Inventory</h5>
+        <button type="button" class="btn-close" (click)="onCancel()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="tsvFile" class="form-label">Select TSV File</label>
+          <input 
+            type="file" 
+            class="form-control" 
+            id="tsvFile"
+            accept=".tsv"
+            (change)="uploadInventoryMasters($event)">
+          <small class="text-muted d-block mt-2">
+            File should be tab-separated with columns: barcode, quantity
+          </small>
+        </div>
+
+        <!-- Error Display -->
+        <div *ngIf="errors.length > 0" class="alert alert-danger mt-3">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>
+          <div *ngFor="let error of errors" class="mb-1">
+            {{ error }}
+          </div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div *ngIf="loading" class="text-center mt-3">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+        <button type="button" class="btn btn-outline-primary" (click)="downloadTemplate()">
+          <i class="bi bi-download me-2"></i>Download Sample
+        </button>
+      </div>
+    </div>
+  </div>
+</div> 

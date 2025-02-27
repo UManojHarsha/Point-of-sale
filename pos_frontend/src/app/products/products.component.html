@@ -1,0 +1,30 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <app-product-list
+        [products]="products"
+        [currentPage]="currentPage"
+        [hasNextPage]="hasNextPage"
+        [loading]="loading"
+        [searchTerm]="searchTerm"
+        (edit)="startEdit($event)"
+        (pageChange)="onPageChange($event)"
+        (searchChange)="onSearchInput($event)"
+        (addNew)="showImport()">
+      </app-product-list>
+
+      <edit-product
+        *ngIf="editingProduct"
+        [product]="editingProduct"
+        (save)="saveEdit()"
+        (cancel)="cancelEdit()">
+      </edit-product>
+
+      <app-import-product
+        *ngIf="showImportModal"
+        (save)="saveImport()"
+        (cancel)="cancelImport()">
+      </app-import-product>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+<div class="d-flex justify-content-between align-items-center client-header">
+  <h2 class="mb-0">Clients</h2>
+  <div class="d-flex gap-2 align-items-center">
+    <div class="search-container">
+      <input 
+        type="text" 
+        class="form-control form-control-sm search-input" 
+        placeholder="Search by name..." 
+        [ngModel]="searchTerm"
+        (ngModelChange)="onSearchInput($event)"
+        name="search">
+    </div>
+    <button class="btn btn-success" 
+            *ngIf="authService.isSupervisor()"
+            (click)="onAddNew()">
+      <i class="bi bi-plus-circle me-2"></i>Add New Client
+    </button>
+  </div>
+</div>
+
+<div *ngIf="loading" class="alert alert-info text-center">
+  <div class="spinner-border text-primary loading-spinner" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+  Loading clients...
+</div>
+
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-hover mb-0">
+      <thead class="table-light">
+        <tr>
+          <th class="col-3">Name</th>
+          <th class="col-3">Email</th>
+          <th class="col-2">Phone</th>
+          <th class="col-2" *ngIf="authService.isSupervisor()">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let client of clients">
+          <td class="col-3 text-break">
+            <span class="fw-medium text-wrap">{{ client.name }}</span>
+          </td>
+          <td class="col-3">{{ client.email }}</td>
+          <td>{{ client.contactNo }}</td>
+          <td  *ngIf="authService.isSupervisor()">
+            <button class="btn btn-primary btn-sm" 
+                    (click)="onEdit(client)">
+              <i class="bi bi-pencil me-1"></i>Edit
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="d-flex justify-content-center mt-3">
+    <nav aria-label="Client pagination">
+      <ul class="pagination mb-0">
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <button class="page-link" 
+                  (click)="onPageChange(currentPage - 1)" 
+                  [disabled]="currentPage === 1">
+            Previous
+          </button>
+        </li>
+        
+        <li class="page-item active">
+          <button class="page-link">{{ currentPage }}</button>
+        </li>
+        
+        <li class="page-item" [class.disabled]="!hasNextPage">
+          <button class="page-link" 
+                  (click)="onPageChange(currentPage + 1)" 
+                  [disabled]="!hasNextPage">
+            Next
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div> 
